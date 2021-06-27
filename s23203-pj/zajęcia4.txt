@@ -1,0 +1,101 @@
+ZADANIA
+
+ZAD1
+
+#include <stdio.h>
+
+int main(){
+    int suma = 0;
+    int x;
+
+    while(scanf("%d",&x) > 0){
+        suma+=x;
+    }
+
+    printf("%d\n",suma);
+    return 0;
+}
+
+ZAD2
+
+#include <stdio.h>
+
+int main(){
+    int suma = 0;
+    int x;
+
+    while(scanf("%d",&x) > 0){
+        suma+=x;
+    }
+
+    return suma;
+}
+
+ZAD3
+
+int main(int argc, char** argv){
+        if(argc==2){
+                int i=0;
+                int j=0;
+                int iloscWierszy=atoi(argv[1]);
+                printf("Wiersze: %d\n",iloscWierszy);
+                for(i=0;i<iloscWierszy;i++){
+                        for(j=0;j<iloscWierszy-i;j++){
+                                printf(" ");
+                        }
+                        for(j=0;j<i*2-1;j++){
+                                printf("*");
+                        }
+                        printf("\n");
+                }
+        }
+
+        return 0;
+
+}
+
+_________________________________________________________________
+
+Zadania z IO
+
+ZAD1
+
+#include <stdio.h> 
+#include <stdlib.h>
+
+int main(int argc, char **argv) 
+{
+    FILE *f;
+    int i, rows, *fileData;
+    char filename[64];
+
+    if (argc == 2) {
+        f = fopen(argv[1], "r");
+    } else if (argc == 1) {
+        printf("podaj nazwe pliku\n");
+        scanf("%s", filename);
+        f = fopen(filename, "r");
+    }
+
+    if(f == NULL) {
+        printf("nie znaleziono pliku\n");
+        return 404;
+    }
+
+    fscanf(f, "%d\n", &rows);
+    fileData = (int *) malloc(rows * sizeof(rows));
+    
+    for (i = 0; i < rows; i++) {
+        int number;
+        fscanf(f, "%d\n", &number);
+        fileData[i] = number;
+    }
+
+    fclose(f);
+
+    for (i = rows-1; i >= 0; i--) {
+        printf("%d\n", fileData[i]);
+    }
+
+    return 0;
+}

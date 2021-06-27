@@ -1,0 +1,88 @@
+C#
+ 
+ 
+ 
+fork() - tworzy proces dziecka
+wait() - funkcja
+getpid() - pobiera process id
+getppid() - pobiera parent process id
+
+
+#bash
+
+
+ps auxf - pokazuje procesy razem z 'drzewami' procesow
+
+_________________________________________________________________________________
+
+ZAD 1
+#include <stdio.h>
+#include <unistd.h>
+
+int main(){
+        int input;
+        printf("PID: %d\t PPID: %d\n", getpid(), getppid());
+return 0;
+}
+_________________________________________________________________________________
+
+ZAD 2
+#include <stdio.h>
+#include <unistd.h>
+
+int main(){
+        int input;
+        printf("PID: %d\t PPID: %d\n", getpid(), getppid());
+        scanf("%d", &input);
+return 0;
+}
+_________________________________________________________________________________
+
+ZAD 4
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main(){
+    int input;
+    pid_t pid = fork();
+
+    if(pid > 0){
+        printf("Rodzic PID: %d\tPPID: %d\n", getpid(), getppid());
+        waitpid(0, &input, 0);
+        printf("Rodzic zakonczyl czekac na swoje dziecko\n");
+    }else if(pid==0){
+        printf("Dziecko PID: %d\t PPID: %d\n", getpid(), getppid());
+    }else{
+        printf("Nie udało się utworzyć dziecka\n");
+    }
+    return 0;
+}
+
+_________________________________________________________________________________
+
+ZAD 6
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdlib.h>
+
+int main(){
+        int i;
+        for(i=0;i<100;i++){
+                pid_t pid = fork();
+                if(pid>0){
+                        wait(NULL);
+                        break;
+                }else{
+                        printf("i=%d  PID:%d\tPPID:%d\n",i,getpid(),getppid());
+                }
+        }
+    return 0;
+}
+
+
